@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mago - Midkemia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="cursor-magico"></div>
+    <div id="foglayer_01" class="fog">
+    <div class="image01"></div>
+    <div class="image02"></div>
+</div>
+<div id="foglayer_02" class="fog">
+  <div class="image01"></div>
+  <div class="image02"></div>
+</div>
+<div id="foglayer_03" class="fog">
+  <div class="image01"></div>
+  <div class="image02"></div>
+</div>
+    <svg style="display: none;">
+        <filter id="filter-fumaca">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="5" seed="2">
+                <animate attributeName="baseFrequency" dur="30s" values="0.01;0.015;0.01" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="30" />
+        </filter>
+    </svg>
+
+    <div id="fundo-fumaca"></div>
+    <svg style="display: none;">
+  <filter id="filter-fumaca">
+    <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="5" seed="1">
+      <animate attributeName="seed" from="1" to="100" dur="60s" repeatCount="indefinite" />
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" scale="30" />
+  </filter>
+</svg>
+
+    <div id="loading">
+        <div class="container-portal">
+            <div class="vortice"></div>
+            <div class="circulo" id="circulo">
+                <span>𖨔</span><span>𖨃</span><span>𖧝</span><span>𖧌</span>
+                <span>𖦩</span><span>✡</span><span>𖨰</span><span>𖨶</span>
+                <span>𖧡</span><span>𖨀</span><span>‡</span><span>𖦡</span>
+                <span>𖦄</span><span>𖥉</span><span>𖣶</span><span>𖣔</span>
+            </div>
+        </div>
+        <p class="clique">Toque no portal para entrar</p>
+    </div>
+
+    <button id="btn-menu" style="display: none;" onclick="toggleMenu()">Menu ⏷</button>
+
+    <div id="conteudo">
+        <nav class="menu-superior" id="menu-principal">
+            <div class="card-item" onclick="abrirSecao('home')">
+                <span class="icon-magico"></span>
+                <p>Início</p>
+            </div>
+            <div class="card-item" onclick="abrirSecao('personagens')">
+                <span class="icon-magico"></span>
+                <p>Personagens</p>
+            </div>
+            <div class="card-item" onclick="abrirSecao('mapa')">
+                <span class="icon-magico"></span>
+                <p>Mapa</p>
+            </div>
+            <div class="card-item" onclick="abrirSecao('historia')">
+                <span class="icon-magico"></span>
+                <p>História</p>
+            </div>
+            <div class="card-item" onclick="abrirSecao('magias')">
+                <span class="icon-magico"></span>
+                <p>Magias</p>
+            </div>
+        </nav>
+
+        <section id="secao-home" class="section-content">
+            <div class="janela-exibicao">
+                <div class="container-imagem">
+                    <img src="img2.jpg" alt="Capa do Livro" onerror="this.src='https://via.placeholder.com/250x380?text=Capa+do+Livro'">
+                </div>
+                <div class="conteudo-texto">
+                    <h1>Mago: Aprendiz</h1>
+                    <p>Em <strong>Mago: Aprendiz</strong>, de Raymond E. Feist, somos transportados para o Reino das Ilhas. O órfão Pug inicia sua jornada como aprendiz do mestre Kulgan, enquanto uma ameaça vinda de outro mundo surge através de fendas espaciais.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="secao-personagens" class="section-content">
+            <h2 class="titulo-magico">Personagens</h2>
+            <div class="galeria-grid" id="grid-personagens"></div>
+        </section>
+
+        <section id="secao-mapa" class="section-content">
+            <h2 class="titulo-magico">Reino das Ilhas</h2>
+            <div class="mapa-container">
+                <div class="mapa-wrapper">
+                    <img src="mapa.jpg" alt="Mapa de Midkemia" onerror="this.src='https://images.tcdn.com.br/img/img_prod/1041648/poster_mapa_mundo_de_midkemia_mago_aprendiz_raymond_e_feist_951_1_48e83344b1307b0365191c7f070f808c.jpg'">
+                    <div class="pin" style="top: 60%; left: 30%;" title="Crydee"></div>
+                    <div class="pin" style="top: 55%; left: 70%;" title="Krondor"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="secao-historia" class="section-content">
+            <h2 class="titulo-magico">História</h2>
+            <div class="pergaminho-container">
+                <div class="pergaminho-papel">
+                    <div class="selo-real"></div>
+                    <h3>A Guerra da Fenda</h3>
+                    <p>A Guerra da Fenda começou com o aparecimento de uma nave estranha em <strong>Crydee</strong>. O que parecia um naufrágio era o prelúdio de uma invasão de <strong>Kelewan</strong>, um mundo onde a magia flui de forma diferente.</p>
+                    <p>Pug e seu amigo Tomas serão os pilares dessa resistência, um através da magia, outro através da herança dos <strong>Valheru</strong>, os antigos deuses-dragões.</p>
+                    <p class="assinatura">Crônicas de Midkemia, Vol I</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="secao-magias" class="section-content">
+            <h2 class="titulo-magico">Magias</h2>
+            <div class="grimorio-grid">
+                <div class="spell-card menor">
+                    <div class="spell-icon"></div>
+                    <h3>Caminho Menor</h3>
+                    <span class="origem">Magia Clássica</span>
+                    <p>Focada em estudos, concentração, controle de elementos e manipulação da energia arcana</p>
+                    <ul class="spell-list">
+                        <li>Fogo Espiritual</li>
+                        <li>Escudo de Ar</li>
+                        <li>Cura pelas Ervas</li>
+                    </ul>
+                </div>
+                <div class="spell-card maior">
+                    <div class="spell-icon"></div>
+                    <h3>Caminho Maior</h3>
+                    <span class="origem">Magia Antiga</span>
+                    <p>Distorce o espaço e manipulando o ambiente de formas complexas. </p>
+                    <ul class="spell-list">
+                        <li>Fendas Dimensionais</li>
+                        <li>Pulsar de Energia</li>
+                        <li>Dominação Mental</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    <button id="btn-proximo" onclick="proximaSecao()">
+    <span class="seta">➔</span>
+    <span class="texto-runico">Próxima Fase</span>
+    </button>   
+    <div class="fog-wrapper">
+    <div class="fog-layer layer-1"></div>
+    <div class="fog-layer layer-2"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

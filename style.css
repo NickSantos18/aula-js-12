@@ -1,0 +1,314 @@
+/* =========================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ========================================= */
+* { margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    cursor: none !important;
+}
+
+body {
+    
+    background: linear-gradient(45deg, #5d656c 0%, darken(#b1bfca, 50%) 100%);
+  background-size: 200% 200%;  
+    color: white;
+    font-family: 'Cinzel', serif;
+    overflow: hidden;
+    height: 100vh;
+     animation: background 6s ease infinite;
+     position: relative;
+}
+#cursor-magico {
+    position: fixed;
+    width: 32px;  /* Ajuste conforme o tamanho da sua imagem */
+    height: 32px;
+    background-image: url('varinha.png'); /* Certifique-se que o nome está correto */
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none; /* Importante: permite clicar nos botões "através" da imagem */
+    z-index: 99999;
+    transform: translate(-50%, -50%); /* Centraliza a imagem no ponto do mouse */
+    transition: transform 0.1s ease-out; /* Suaviza o movimento */
+}
+
+
+#fundo-fumaca {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at center, #2a1f1f 0%, #363145 100%);
+}
+
+#fundo-fumaca::before {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    filter: url(#filter-fumaca) blur(4px);
+    background: radial-gradient(circle, rgba(129, 94, 94, 0.2) 0%, transparent 70%);
+    animation: girarFumaca 40s linear infinite;
+    opacity: 0.4;
+}
+
+@keyframes girarFumaca { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* =========================================
+   PORTAL DE ENTRADA (LOADING)
+   ========================================= */
+#loading {
+    height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    cursor: pointer; transition: opacity 0.6s ease; z-index: 200;
+}
+
+.container-portal { position: relative; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; }
+
+.circulo {
+    position: absolute; width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    animation: rodarRunas 25s linear infinite;
+}
+
+.circulo span { position: absolute; font-size: 24px; color: #ff7d7d; text-shadow: 0 0 12px #ff0000; font-weight: bold; }
+
+.vortice {
+    position: absolute; width: 240px; height: 240px; border-radius: 50%;
+    color: black;
+    background: conic-gradient(from 0deg, #820000,#b310e5d1,#2a0000,#bb4a4a,#2a0000, #820000,#b310e5d1,#2a0000,#bb4a4a,#2a0000, #820000,#b310e5d1,#2a0000 ,#bb4a4a,#2a0000, #820000,#b310e5d1,#2a0000 ,#bb4a4a,#2a0000 ,#820000,#b310e5d1, #820000,#b310e5d1, #2a0000,#bb4a4a,#2a0000, #820000,#b310e5d1,#2a0000,#bb4a4a,#2a0000, #820000,#b310e5d1,#2a0000 ,#bb4a4a,#2a0000, #820000,#b310e5d1,#2a0000 ,#bb4a4a,#2a0000 ,#820000,#b310e5d1);
+    filter: blur(10px); animation: girarFumaca 3s linear infinite; opacity: 0.6;
+}
+
+@keyframes rodarRunas {
+    from { transform: rotate(0deg);}
+    to { transform: rotate(360deg); 
+    } 
+}
+
+.clique { margin-top: 40px; letter-spacing: 3px; text-transform: uppercase; color: #ff7d7d; animation: pulse 2s infinite; }
+
+@keyframes pulse { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.4; scale: 1.05; } }
+
+/* =========================================
+   MENU E NAVEGAÇÃO
+   ========================================= */
+#btn-menu {
+    position: fixed; top: 25px; right: 25px; z-index: 105;
+    background: linear-gradient(135deg, #820000, #4a0000); 
+    border: 1px solid #ff7d7d; color: white; padding: 12px 28px; border-radius: 50px; cursor: pointer;
+}
+
+.menu-superior {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(88, 82, 94, 0.95); backdrop-filter: blur(15px);
+    display: flex; justify-content: center; align-items: center; gap: 25px;
+    z-index: 100; transition: 0.6s; transform: translateY(-100%);
+}
+
+.menu-superior.active { transform: translateY(0); }
+
+.card-item { 
+    cursor: pointer;
+    text-align: center; 
+    padding: 25px; 
+    width: 150px; 
+    border-radius: 20px;
+    color: #ff0000;
+    background: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(255, 77, 77, 0.1); 
+    transition: 0.4s;
+}
+
+.card-item:hover { transform: translateY(-10px); background: rgba(130, 0, 0, 0.562); border-color: #f62121;color: #ff0000; }
+
+/* =========================================
+   SEÇÃO MAPA
+   ========================================= */
+.mapa-container { text-align: center; margin-top: 20px; }
+.mapa-wrapper {
+    position: relative; border: 5px solid #2a0000; overflow: hidden;
+    box-shadow: 0 0 40px black; cursor: crosshair; max-width: 900px; margin: auto;
+}
+.mapa-wrapper img { width: 100%; transition: transform 0.6s ease; display: block; }
+
+.pin { position: absolute; font-size: 20px; filter: drop-shadow(0 0 5px red); }
+.mapa-legenda { color: #ff7d7d; margin-top: 10px; font-style: italic; }
+
+/* =========================================
+   SEÇÃO HISTÓRIA (PERGAMINHO)
+   ========================================= */
+.pergaminho-container { padding: 20px; display: flex; justify-content: center; }
+.pergaminho-papel {
+    background: #f4e4bc; background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+    color: #2a1b0a; padding: 50px 40px; max-width: 700px; border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5); position: relative; font-family: 'Georgia', serif; line-height: 1.8;
+}
+.selo-real {
+    position: absolute; top: -15px; right: 30px; width: 50px; height: 50px;
+    background: #820000; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.selo-real::after { content: "⚜"; color: gold; font-size: 25px; }
+.pergaminho-papel h3 { text-align: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+.assinatura { margin-top: 30px; text-align: right; font-style: italic; opacity: 0.8; }
+
+/* =========================================
+   SEÇÃO MAGIAS (GRIMÓRIO)
+   ========================================= */
+.grimorio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.spell-card {
+    background: rgba(10, 0, 20, 0.8); border: 1px solid #333; padding: 30px; border-radius: 15px;
+    text-align: center; transition: 0.5s;
+}
+.spell-icon { font-size: 3rem; margin-bottom: 15px; }
+.origem { font-size: 0.7rem; color: #ff7d7d; text-transform: uppercase; letter-spacing: 2px; }
+.spell-list { list-style: none; margin-top: 20px; text-align: left; padding-top: 15px; border-top: 1px solid #444; }
+.spell-list li::before { content: "◈ "; color: #ff4d4d; }
+
+.spell-card.menor:hover { box-shadow: 0 0 25px rgba(255, 69, 0, 0.4); border-color: #ff4500; }
+.spell-card.maior { background: linear-gradient(145deg, rgba(20,0,40,0.9), #050014); }
+.spell-card.maior:hover { box-shadow: 0 0 30px rgba(138, 43, 226, 0.5); border-color: #8a2be2; }
+
+/* =========================================
+   ESTILOS DE CONTEÚDO E PERSONAGENS
+   ========================================= */
+#conteudo { display: none; height: 100vh; width: 100%; flex-direction: column; align-items: center; padding-top: 120px; overflow-y: auto; }
+.section-content { display: none; width: 90%; max-width: 1100px; margin-bottom: 80px; }
+.active-section { display: block !important; animation: fadeIn 0.8s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.titulo-magico { text-align: center; color: #ff4d4d; font-size: 2.5rem; text-shadow: 0 0 20px rgba(255,0,0,0.5); margin-bottom: 40px; }
+
+.galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.card-personagem { background: #150000; border: 1px solid rgba(255,0,0,0.2); border-radius: 15px; overflow: hidden; transition: 0.4s; }
+.card-personagem:hover { transform: translateY(-10px); border-color: #ff4d4d; }
+.moldura-foto { height: 200px; overflow: hidden; }
+.moldura-foto img { width: 100%; height: 100%; object-fit: cover; }
+
+.janela-exibicao { display: flex; gap: 40px; background: rgba(20, 0, 0, 0.6); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,0,0,0.2); align-items: center; }
+.container-imagem img {
+    width: 220px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); /* Adiciona um brilho vermelho na capa */
+    transition: transform 0.5s ease;
+}
+
+.container-imagem img:hover {
+    transform: scale(1.05) rotate(1deg); /* Efeito suave ao passar o mouse */
+}
+
+@media (max-width: 768px) {
+    .menu-superior { flex-direction: column; }
+    .janela-exibicao { flex-direction: column; text-align: center; }
+}
+
+.circulo span {
+    display: inline-block;
+    position: absolute;
+    transition: all 0.5s ease-out; /* Garante que qualquer mudança de estilo seja animada */
+    will-change: transform, opacity; /* Otimiza a performance da animação */
+}
+
+/* Estilo da partícula de magia */
+.particula-magica {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: #ff7d7d; /* Cor combinando com seu tema */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 10px #ff0000, 0 0 20px #ff7d7d;
+    animation: sumirMagia 0.8s forwards;
+}
+
+@keyframes sumirMagia {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+#btn-proximo {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+    z-index: 110;
+    background: rgba(20, 0, 0, 0.8);
+    border: 2px solid #ff4d4d;
+    color: #ff7d7d;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    display: none; /* Escondido por padrão */
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#btn-proximo:hover {
+    background: #820000;
+    color: white;
+    box-shadow: 0 0 25px #ff4d4d;
+    transform: scale(1.05);
+}
+
+#btn-proximo .seta {
+    margin-left: 5px;
+    font-size: 1.2rem;
+}
+
+@keyframes brilhoBotao {
+    0% { border-color: #820000; }
+    50% { border-color: #ff4d4d; }
+    100% { border-color: #820000; }
+}
+
+#btn-proximo {
+    animation: brilhoBotao 2s infinite;
+}
+/* =========================================
+   SISTEMA DE NEBLINA ANIMADA
+   ========================================= */
+.fog-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Fica atrás do conteúdo, mas acima do gradiente do body */
+    pointer-events: none;
+}
+
+.fog-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Dobro da largura para permitir animação contínua */
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Textura base */
+    background-image: url('https://res.cloudinary.com/drt6v78vj/image/upload/v1625586050/fog-1_m9v0v7.png'); 
+    background-repeat: repeat-x;
+    background-size: contain;
+}
+
+/* Camada 1: Neblina mais lenta e densa */
+.layer-1 {
+    opacity: 0.3;
+    animation: moveFog 60s linear infinite;
+}
+
+/* Camada 2: Neblina mais rápida e sutil */
+.layer-2 {
+    opacity: 0.2;
+    background-position: 100px 0;
+    animation: moveFog 40s linear infinite reverse;
+    filter: blur(5px);
+}
+
+@keyframes moveFog {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
